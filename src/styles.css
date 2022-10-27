@@ -1,0 +1,107 @@
+.page-wrapper {
+  width: 960px;
+  max-width: 100%;
+  min-height: 100vh;
+  height: max-content;
+  margin: 0 auto;
+  background: linear-gradient(
+    171.8deg,
+    rgb(238, 156, 167) 13.8%,
+    rgb(246, 204, 162) 82.6%
+  );
+  padding: 2%;
+}
+.app-wrapper {
+  border: solid;
+  border-color: bisque;
+  background: radial-gradient(
+    905px at 4.9% 85.8%,
+    rgb(255, 243, 242) 0.1%,
+    rgb(255, 247, 220) 57.6%
+  );
+  border-radius: 14px;
+  box-shadow: 14px 17px 13px rgba(215, 158, 103, 0.7);
+}
+.form-check-input:checked {
+  background-color: #ffc107;
+  border-color: #ffc107;
+}
+.nav {
+  --bs-nav-link-color: black;
+  --bs-nav-link-hover-color: #ffc007;
+  width: 100%;
+}
+.nav-pills .nav-link.active {
+  color: #41464b;
+  background-color: #ffc107;
+}
+.today-img {
+  width: 50%;
+  align-self: center;
+}
+.week-forecast {
+  height: 90%;
+}
+.day-forecast-container {
+  border: solid;
+  border-color: #e0ffcd#ffcab0#ffebbb#fdffcd;
+  border-top-left-radius: 50% 20%;
+  border-top-right-radius: 50% 20%;
+  border-bottom-left-radius: 50% 20%;
+  border-bottom-right-radius: 50% 20%;
+  height: 90%;
+  background: #ffebbb;
+  box-shadow: 7px 5px 11px rgba(255, 202, 176, 1);
+}
+.last-search {
+  background: #ffebbb;
+  box-shadow: 7px 9px 11px rgba(255, 202, 176, 1);
+  border: solid;
+  border-color: #e0ffcd#ffcab0#ffebbb#fdffcd;
+}
+.weather-img {
+  width: 100%;
+}
+.day-forecast {
+  text-align: center;
+}
+.last-search {
+  height: 100%;
+}
+.card-title {
+  font-size: xx-large;
+  font-weight: bold;
+}
+.degrees {
+  font-size: small;
+}
+.real-feel {
+  font-size: medium;
+}
+.font-additional {
+  font-size: 55%;
+}
+footer {
+  border-top: solid;
+  border-color: #ffcab0;
+  border-width: thin;
+}
+.footer {
+  color: black;
+}
+.footer:hover {
+  color: #ffc107;
+}
+#celsius,
+#fahrenheit {
+  text-decoration: none;
+  color: #ffc007;
+}
+#celsius:hover,
+#fahrenheit:hover {
+  text-decoration: underline;
+  color: black;
+}
+a:active {
+  color: black;
+}
