@@ -1,23 +1,25 @@
 ///// This is current date and time /////
-let now = new Date();
+function getCurrentTime() {
+  let now = new Date();
 
-let days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
 
-let day = days[now.getDay()];
-let time = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  let day = days[now.getDay()];
+  let time = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 
-let today = document.querySelector("#today-day");
-today.innerHTML = `${day} ${time}`;
+  let today = document.querySelector("#today-day");
+  today.innerHTML = `${day} ${time}`;
+}
 
-///// This is API call for weather by city /////
+///// This is API call for weather by city or coordinates /////
 function callApiForCityOrCoordinates(searchParameters = "q=new york") {
   let apiKey = "197ef3a642b76eef90e131866f74a0a0";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?${searchParameters}&appid=${apiKey}&units=metric`;
@@ -55,6 +57,9 @@ function displayWeather(response) {
   windElement.innerHTML = `${wind} meter/sec`;
   sunriseElement.innerHTML = sunriseLocalTime;
   sunsetElement.innerHTML = sunsetLocalTime;
+
+  // Refresh current time
+  getCurrentTime();
 }
 
 function convertUnixtoLocalTime(timeStamp) {
@@ -83,6 +88,7 @@ searchInput.addEventListener("keypress", function (e) {
 function searchWeatherForCity() {
   let searchValue = searchInput.value;
   let searchParameters = `q=${searchValue}`;
+  searchInput.value = "";
 
   callApiForCityOrCoordinates(searchParameters);
 }
@@ -100,4 +106,8 @@ function getWeatherForCoordinates(position) {
   callApiForCityOrCoordinates(searchParameters);
 }
 
+// When page loads we get a weather for default city
 callApiForCityOrCoordinates();
+
+// When page loads we get current time
+getCurrentTime();
