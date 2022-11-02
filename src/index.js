@@ -37,6 +37,7 @@ function displayWeather(response) {
   let windElement = document.querySelector("#wind");
   let sunriseElement = document.querySelector("#sunrise");
   let sunsetElement = document.querySelector("#sunset");
+  let mainIconElement = document.querySelector("#main-icon");
 
   // create variables and asign corresponding data from API response
   let data = response.data;
@@ -48,6 +49,7 @@ function displayWeather(response) {
   let wind = `${Math.round(data.wind.speed)}`;
   let sunriseLocalTime = convertUnixtoLocalTime(data.sys.sunrise);
   let sunsetLocalTime = convertUnixtoLocalTime(data.sys.sunset);
+  let mainIcon = data.weather[0].icon;
 
   // insert collected data into corresponding HTMl elements
   placeElement.innerHTML = `${city}, ${country}`;
@@ -57,6 +59,11 @@ function displayWeather(response) {
   windElement.innerHTML = `${wind} meter/sec`;
   sunriseElement.innerHTML = sunriseLocalTime;
   sunsetElement.innerHTML = sunsetLocalTime;
+  mainIconElement.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${mainIcon}@2x.png`
+  );
+  mainIconElement.setAttribute("alt", data.weather[0].description);
 
   // Refresh current time
   getCurrentTime();
