@@ -49,7 +49,7 @@ function displayWeather(response) {
   let wind = `${Math.round(data.wind.speed)}`;
   let sunriseLocalTime = convertUnixtoLocalTime(data.sys.sunrise);
   let sunsetLocalTime = convertUnixtoLocalTime(data.sys.sunset);
-  let mainIcon = data.weather[0].icon;
+  let mainIcon = data.weather[0].icon.replace("n", "d");
 
   // insert collected data into corresponding HTMl elements
   placeElement.innerHTML = `${city}, ${country}`;
