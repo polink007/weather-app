@@ -41,9 +41,12 @@ function displayWeather(response) {
 
   // create variables and asign corresponding data from API response
   let data = response.data;
+
+  celsiusTemp = data.main.temp;
+
   let city = data.name;
   let country = data.sys.country;
-  let temp = `${Math.round(data.main.temp)}°`;
+  let temp = `${Math.round(celsiusTemp)}°`;
   let tempFeels = `${Math.round(data.main.feels_like)}°`;
   let humidity = data.main.humidity;
   let wind = `${Math.round(data.wind.speed)}`;
@@ -112,6 +115,34 @@ function getWeatherForCoordinates(position) {
   let searchParameters = `lat=${lat}&lon=${lon}`;
   callApiForCityOrCoordinates(searchParameters);
 }
+
+// Celsius / Fahrenheit switch
+function switchToFahrenheit(event) {
+  event.preventDefault();
+  let currentTemp = document.querySelector("#current-temp");
+
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
+  let fahrenheitTemp = (celsiusTemp * 9) / 5 + 32;
+  currentTemp.innerHTML = `${Math.round(fahrenheitTemp)}°`;
+}
+
+function switchToCelsius(event) {
+  event.preventDefault();
+
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
+  let currentTemp = document.querySelector("#current-temp");
+  currentTemp.innerHTML = `${Math.round(celsiusTemp)}°`;
+}
+
+let celsiusTemp = null;
+
+let celsiusLink = document.querySelector("#celsius");
+let fahrenheitLink = document.querySelector("#fahrenheit");
+
+celsiusLink.addEventListener("click", switchToCelsius);
+fahrenheitLink.addEventListener("click", switchToFahrenheit);
 
 // When page loads we get a weather for default city
 callApiForCityOrCoordinates();

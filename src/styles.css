@@ -99,7 +99,7 @@ footer {
 }
 #celsius:hover,
 #fahrenheit:hover {
-  text-decoration: underline;
+  text-decoration: none;
   color: black;
 }
 a:active {
