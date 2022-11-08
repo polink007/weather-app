@@ -20,9 +20,14 @@ function getCurrentTime() {
 }
 
 ///// This is API call for weather by city or coordinates /////
-function callApiForCityOrCoordinates(searchParameters = "q=new york") {
+let currentCity = "";
+
+function callApiForCityOrCoordinates(
+  searchParameters = "q=new york",
+  units = "metric"
+) {
   let apiKey = "197ef3a642b76eef90e131866f74a0a0";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?${searchParameters}&appid=${apiKey}&units=metric`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?${searchParameters}&appid=${apiKey}&units=${units}`;
 
   axios.get(apiUrl).then(displayWeather);
 }
@@ -41,18 +46,18 @@ function displayWeather(response) {
 
   // create variables and asign corresponding data from API response
   let data = response.data;
-
-  celsiusTemp = data.main.temp;
-
   let city = data.name;
   let country = data.sys.country;
-  let temp = `${Math.round(celsiusTemp)}°`;
+  let temp = `${Math.round(data.main.temp)}°`;
   let tempFeels = `${Math.round(data.main.feels_like)}°`;
   let humidity = data.main.humidity;
   let wind = `${Math.round(data.wind.speed)}`;
   let sunriseLocalTime = convertUnixtoLocalTime(data.sys.sunrise);
   let sunsetLocalTime = convertUnixtoLocalTime(data.sys.sunset);
-  let mainIcon = data.weather[0].icon.replace("n", "d");
+  let mainIcon = data.weather[0].icon;
+
+  // Here we save the city from the lates search
+  currentCity = city;
 
   // insert collected data into corresponding HTMl elements
   placeElement.innerHTML = `${city}, ${country}`;
@@ -62,10 +67,7 @@ function displayWeather(response) {
   windElement.innerHTML = `${wind} meter/sec`;
   sunriseElement.innerHTML = sunriseLocalTime;
   sunsetElement.innerHTML = sunsetLocalTime;
-  mainIconElement.setAttribute(
-    "src",
-    `http://openweathermap.org/img/wn/${mainIcon}@2x.png`
-  );
+  mainIconElement.setAttribute("src", `./images/${mainIcon}.png`);
   mainIconElement.setAttribute("alt", data.weather[0].description);
 
   // Refresh current time
@@ -116,33 +118,30 @@ function getWeatherForCoordinates(position) {
   callApiForCityOrCoordinates(searchParameters);
 }
 
-// Celsius / Fahrenheit switch
-function switchToFahrenheit(event) {
-  event.preventDefault();
-  let currentTemp = document.querySelector("#current-temp");
-
-  celsiusLink.classList.remove("active");
-  fahrenheitLink.classList.add("active");
-  let fahrenheitTemp = (celsiusTemp * 9) / 5 + 32;
-  currentTemp.innerHTML = `${Math.round(fahrenheitTemp)}°`;
-}
-
-function switchToCelsius(event) {
-  event.preventDefault();
-
-  celsiusLink.classList.add("active");
-  fahrenheitLink.classList.remove("active");
-  let currentTemp = document.querySelector("#current-temp");
-  currentTemp.innerHTML = `${Math.round(celsiusTemp)}°`;
-}
-
-let celsiusTemp = null;
-
+///// Celsius / Fahrenheit switch /////
 let celsiusLink = document.querySelector("#celsius");
 let fahrenheitLink = document.querySelector("#fahrenheit");
 
-celsiusLink.addEventListener("click", switchToCelsius);
-fahrenheitLink.addEventListener("click", switchToFahrenheit);
+celsiusLink.addEventListener("click", switchUnits);
+fahrenheitLink.addEventListener("click", switchUnits);
+
+function switchUnits(event) {
+  let selectedElement = event.target;
+  // class="active"
+
+  let units = "";
+  if (selectedElement === celsiusLink) {
+    units = "metric";
+    celsiusLink.setAttribute("class", "active");
+    fahrenheitLink.removeAttribute("class");
+  } else {
+    units = "imperial";
+    fahrenheitLink.setAttribute("class", "active");
+    celsiusLink.removeAttribute("class");
+  }
+
+  callApiForCityOrCoordinates(`q=${currentCity}`, units);
+}
 
 // When page loads we get a weather for default city
 callApiForCityOrCoordinates();

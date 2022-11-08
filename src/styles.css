@@ -102,8 +102,10 @@ footer {
   text-decoration: none;
   color: black;
 }
-a:active {
+#celsius.active,
+#fahrenheit.active {
   color: black;
+  font-size: large;
 }
 
 #current-location-button {
