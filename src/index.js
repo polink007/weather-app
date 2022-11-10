@@ -21,6 +21,7 @@ function getCurrentTime() {
 
 ///// This is API call for weather by city or coordinates /////
 let currentCity = "";
+let currentUnits = "metric";
 
 function callApiForCityOrCoordinates(
   searchParameters = "q=new york",
@@ -64,7 +65,8 @@ function displayWeather(response) {
   tempElement.innerHTML = temp;
   feelsLikeElement.innerHTML = tempFeels;
   humidityElement.innerHTML = `${humidity}%`;
-  windElement.innerHTML = `${wind} meter/sec`;
+  let windUnits = currentUnits === "metric" ? "meter/sec" : "mile/hour";
+  windElement.innerHTML = `${wind} ${windUnits}`;
   sunriseElement.innerHTML = sunriseLocalTime;
   sunsetElement.innerHTML = sunsetLocalTime;
   mainIconElement.setAttribute("src", `./images/${mainIcon}.png`);
@@ -127,7 +129,6 @@ fahrenheitLink.addEventListener("click", switchUnits);
 
 function switchUnits(event) {
   let selectedElement = event.target;
-  // class="active"
 
   let units = "";
   if (selectedElement === celsiusLink) {
@@ -140,6 +141,7 @@ function switchUnits(event) {
     celsiusLink.removeAttribute("class");
   }
 
+  currentUnits = units;
   callApiForCityOrCoordinates(`q=${currentCity}`, units);
 }
 
