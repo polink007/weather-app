@@ -78,8 +78,13 @@
 .real-feel {
   font-size: medium;
 }
+#weather-description {
+  font-size: large;
+  color: #ffc107;
+}
 .font-additional {
   font-size: 55%;
+  font-weight: 500;
 }
 footer {
   border-top: solid;

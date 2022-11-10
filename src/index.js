@@ -44,6 +44,7 @@ function displayWeather(response) {
   let sunriseElement = document.querySelector("#sunrise");
   let sunsetElement = document.querySelector("#sunset");
   let mainIconElement = document.querySelector("#main-icon");
+  let descriptionElement = document.querySelector("#weather-description");
 
   // create variables and asign corresponding data from API response
   let data = response.data;
@@ -56,7 +57,7 @@ function displayWeather(response) {
   let sunriseLocalTime = convertUnixtoLocalTime(data.sys.sunrise);
   let sunsetLocalTime = convertUnixtoLocalTime(data.sys.sunset);
   let mainIcon = data.weather[0].icon;
-
+  let weatherDescription = data.weather[0].main;
   // Here we save the city from the lates search
   currentCity = city;
 
@@ -65,12 +66,13 @@ function displayWeather(response) {
   tempElement.innerHTML = temp;
   feelsLikeElement.innerHTML = tempFeels;
   humidityElement.innerHTML = `${humidity}%`;
-  let windUnits = currentUnits === "metric" ? "meter/sec" : "mile/hour";
+  let windUnits = currentUnits === "metric" ? "m/sec" : "mph";
   windElement.innerHTML = `${wind} ${windUnits}`;
   sunriseElement.innerHTML = sunriseLocalTime;
   sunsetElement.innerHTML = sunsetLocalTime;
   mainIconElement.setAttribute("src", `./images/${mainIcon}.png`);
   mainIconElement.setAttribute("alt", data.weather[0].description);
+  descriptionElement.innerHTML = weatherDescription;
 
   // Refresh current time
   getCurrentTime();
