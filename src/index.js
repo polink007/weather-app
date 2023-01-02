@@ -22,15 +22,18 @@ function getCurrentTime() {
 ///// This is API call for weather by city or coordinates /////
 let currentCity = "";
 let currentUnits = "metric";
+let apiKey = "197ef3a642b76eef90e131866f74a0a0";
 
+// for today & 5 days
 function callApiForCityOrCoordinates(
   searchParameters = "q=new york",
   units = "metric"
 ) {
-  let apiKey = "197ef3a642b76eef90e131866f74a0a0";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?${searchParameters}&appid=${apiKey}&units=${units}`;
+  let apiUrlOneDay = `https://api.openweathermap.org/data/2.5/weather?${searchParameters}&appid=${apiKey}&units=${units}`;
+  let apiUrlFiveDays = `https://api.openweathermap.org/data/2.5/forecast?${searchParameters}&appid=${apiKey}&units=${units}`;
 
-  axios.get(apiUrl).then(displayWeather);
+  axios.get(apiUrlOneDay).then(displayWeather);
+  axios.get(apiUrlFiveDays).then(displayWeekWeather);
 }
 
 // Here we get data from response and insert into corresponding elements
@@ -54,8 +57,8 @@ function displayWeather(response) {
   let tempFeels = `${Math.round(data.main.feels_like)}°`;
   let humidity = data.main.humidity;
   let wind = `${Math.round(data.wind.speed)}`;
-  let sunriseLocalTime = convertUnixtoLocalTime(data.sys.sunrise);
-  let sunsetLocalTime = convertUnixtoLocalTime(data.sys.sunset);
+  let sunriseLocalTime = convertUnixToLocalTime(data.sys.sunrise);
+  let sunsetLocalTime = convertUnixToLocalTime(data.sys.sunset);
   let mainIcon = data.weather[0].icon;
   let weatherDescription = data.weather[0].main;
   // Here we save the city from the lates search
@@ -78,7 +81,24 @@ function displayWeather(response) {
   getCurrentTime();
 }
 
-function convertUnixtoLocalTime(timeStamp) {
+function displayWeekWeather(response) {
+  let now = new Date();
+  let listOfForecasts = [];
+
+  for (item of response.data.list) {
+    let dt = item.dt;
+    let then = new Date(dt * 1000);
+    if (
+      then.setHours(00, 00, 00) > now.setHours(00, 00, 00) &&
+      item.dt_txt.search("12:00:00") !== -1
+    ) {
+      listOfForecasts.push(item);
+    }
+  }
+  console.log(listOfForecasts);
+}
+
+function convertUnixToLocalTime(timeStamp) {
   let DateObject = new Date(timeStamp * 1000);
   let localTime = DateObject.toLocaleTimeString([], {
     hour: "2-digit",
