@@ -1,22 +1,17 @@
 ///// This is current date and time /////
 function getCurrentTime() {
   let now = new Date();
+  const options = {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+  };
 
-  let days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-
-  let day = days[now.getDay()];
+  let date = now.toLocaleDateString(undefined, options);
   let time = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 
   let today = document.querySelector("#today-day");
-  today.innerHTML = `${day} ${time}`;
+  today.innerHTML = `<div>${date}</div> <div>${time}</div>`;
 }
 
 ///// This is API call for weather by city or coordinates /////
@@ -82,6 +77,40 @@ function displayWeather(response) {
 }
 
 function displayWeekWeather(response) {
+  let listOfForecasts = filterWeekForecastFromResponse(response);
+
+  let weekForecastContaner = document.querySelector("#week-forecast-conttaner");
+  weekForecastContaner.innerHTML = "";
+
+  listOfForecasts.forEach(function (dayForecast) {
+    let date = convertUnixtoLocalDate(dayForecast.dt);
+    let icon = `./images/${dayForecast.weather[0].icon}.png`;
+    let description = dayForecast.weather[0].description;
+    let temp = `${Math.round(dayForecast.main.temp)}°`;
+    let dayForecastHtml = `
+      <div
+        class="col-sm-2 col-xs-12 d-flex align-content-center justify-content-center flex-wrap"
+      >
+        <div
+          class="day-forecast-container d-flex align-content-between justify-content-center flex-wrap"
+        >
+          <div class="day-forecast mt-3">${date}</div>
+          <div class="day-forecast-img mt-3">
+            <img
+              src="${icon}"
+              alt="${description}"
+              class="weather-img"
+            />
+          </div>
+          <div class="day-forecast my-3">${temp}</div>
+        </div>
+      </div>
+    `;
+    weekForecastContaner.innerHTML += dayForecastHtml;
+  });
+}
+
+function filterWeekForecastFromResponse(response) {
   let now = new Date();
   let listOfForecasts = [];
 
@@ -95,7 +124,8 @@ function displayWeekWeather(response) {
       listOfForecasts.push(item);
     }
   }
-  console.log(listOfForecasts);
+
+  return listOfForecasts;
 }
 
 function convertUnixToLocalTime(timeStamp) {
@@ -106,6 +136,17 @@ function convertUnixToLocalTime(timeStamp) {
   });
 
   return localTime;
+}
+
+function convertUnixtoLocalDate(timeStamp) {
+  let dateObject = new Date(timeStamp * 1000);
+  let day = dateObject.toLocaleDateString(undefined, { weekday: "short" });
+  let date = dateObject.toLocaleDateString(undefined, {
+    month: "short",
+    day: "numeric",
+  });
+
+  return `${day}</br>${date}`;
 }
 
 ///// Search weather by city /////

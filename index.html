@@ -100,7 +100,6 @@
                 <a class="nav-link active" aria-current="page" href="#">
                   Today
                 </a>
-                <a class="nav-link" href="#"> Tomorrow </a>
               </nav>
             </div>
             <div
@@ -108,10 +107,8 @@
             >
               <nav class="nav nav-tabs nav-fill">
                 <a class="nav-link active" aria-current="page" href="#">
-                  Forecast
+                  Week Forecast
                 </a>
-                <a class="nav-link" href="#">Air Quality</a>
-                <a class="nav-link" href="#">Chance of Rain</a>
               </nav>
             </div>
           </div>
@@ -165,109 +162,11 @@
             <div
               class="week-forecast-col col-sm-9 col-xs-12 d-flex align-content-center flex-wrap"
             >
-              <div class="row m-1 pb-5 pb-sm-0 week-forecast">
-                <div
-                  class="col-sm-2 col-xs-12 d-flex align-content-center justify-content-center flex-wrap"
-                >
-                  <div
-                    class="day-forecast-container d-flex align-content-between justify-content-center flex-wrap"
-                  >
-                    <div class="day-forecast mt-3">Mon</div>
-                    <div class="day-forecast-img mt-3">
-                      <img
-                        src="images/sunny-cloudy.png"
-                        alt="picture"
-                        class="weather-img"
-                      />
-                    </div>
-                    <div class="day-forecast my-3">22°</div>
-                  </div>
-                </div>
-                <div
-                  class="col-sm-2 col-xs-12 d-flex align-content-center justify-content-center flex-wrap"
-                >
-                  <div
-                    class="day-forecast-container d-flex align-content-between justify-content-center flex-wrap"
-                  >
-                    <div class="day-forecast mt-3">Tue</div>
-                    <div class="day-forecast-img mt-3">
-                      <img
-                        src="images/rainy.png"
-                        alt="rainy picture"
-                        class="weather-img"
-                      />
-                    </div>
-                    <div class="day-forecast my-3">20°</div>
-                  </div>
-                </div>
-                <div
-                  class="col-sm-2 col-xs-12 d-flex align-content-center justify-content-center flex-wrap"
-                >
-                  <div
-                    class="day-forecast-container d-flex align-content-between justify-content-center flex-wrap"
-                  >
-                    <div class="day-forecast mt-3">Wed</div>
-                    <div class="day-forecast-img mt-3">
-                      <img
-                        src="images/cloudy.png"
-                        alt="cloudy picture"
-                        class="weather-img"
-                      />
-                    </div>
-                    <div class="day-forecast my-3">21°</div>
-                  </div>
-                </div>
-                <div
-                  class="col-sm-2 col-xs-12 d-flex align-content-center justify-content-center flex-wrap"
-                >
-                  <div
-                    class="day-forecast-container d-flex align-content-between justify-content-center flex-wrap"
-                  >
-                    <div class="day-forecast mt-3">Thur</div>
-                    <div class="day-forecast-img mt-3">
-                      <img
-                        src="images/sunny.png"
-                        alt="sunny picture"
-                        class="weather-img"
-                      />
-                    </div>
-                    <div class="day-forecast my-3">25°</div>
-                  </div>
-                </div>
-                <div
-                  class="col-sm-2 col-xs-12 d-flex align-content-center justify-content-center flex-wrap"
-                >
-                  <div
-                    class="day-forecast-container d-flex align-content-between justify-content-center flex-wrap"
-                  >
-                    <div class="day-forecast mt-3">Fri</div>
-                    <div class="day-forecast-img mt-3">
-                      <img
-                        src="images/thunderstorm.png"
-                        alt="thunderstorm picture"
-                        class="weather-img"
-                      />
-                    </div>
-                    <div class="day-forecast my-3">23°</div>
-                  </div>
-                </div>
-                <div
-                  class="col-sm-2 col-xs-12 d-flex align-content-center justify-content-center flex-wrap"
-                >
-                  <div
-                    class="day-forecast-container d-flex align-content-between justify-content-center flex-wrap"
-                  >
-                    <div class="day-forecast mt-3">Sat</div>
-                    <div class="day-forecast-img mt-3">
-                      <img
-                        src="images/sunny-cloudy.png"
-                        alt="sunny-cloudy picture"
-                        class="weather-img"
-                      />
-                    </div>
-                    <div class="day-forecast my-3">19°</div>
-                  </div>
-                </div>
+              <div
+                class="week-forecast row m-1 pb-5 pb-sm-0 d-flex justify-content-around"
+                id="week-forecast-conttaner"
+              >
+                <!-- Week Forecast is filled by the DisplayWeekWeather function -->
               </div>
             </div>
           </div>
@@ -283,30 +182,9 @@
                 <div class="col-4">
                   <div class="last-search rounded-5 text-center mx-1">
                     <div class="col-12 px-3">USA San Diego</div>
-                    <div class="col-12">
-                      <i class="fa-solid fa-cloud-sun"></i>
-                    </div>
-                    <div class="col-12">29°</div>
                   </div>
                 </div>
-                <div class="col-4">
-                  <div class="last-search rounded-5 text-center mx-1">
-                    <div class="col-12 px-3">France Paris</div>
-                    <div class="col-12">
-                      <i class="fa-solid fa-cloud"></i>
-                    </div>
-                    <div class="col-12">20°</div>
-                  </div>
-                </div>
-                <div class="col-4">
-                  <div class="last-search rounded-5 text-center mx-1">
-                    <div class="col-12 px-3">Australia Sydney</div>
-                    <div class="col-12">
-                      <i class="fa-solid fa-sun"></i>
-                    </div>
-                    <div class="col-12">31°</div>
-                  </div>
-                </div>
+                <!--  -->
               </div>
             </div>
           </div>
