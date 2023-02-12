@@ -74,6 +74,9 @@ function displayWeather(response) {
 
   // Refresh current time
   getCurrentTime();
+
+  // Add to last searches
+  updateLastSearches(`${city}, ${country}`);
 }
 
 function displayWeekWeather(response) {
@@ -207,6 +210,43 @@ function switchUnits(event) {
   currentUnits = units;
   callApiForCityOrCoordinates(`q=${currentCity}`, units);
 }
+
+///// Last Searches Logic /////
+const lastSearches = [];
+
+function updateLastSearches(searchedLocation) {
+  if (lastSearches[0] !== searchedLocation) {
+    if (lastSearches.length === 3) {
+      lastSearches.pop();
+    }
+    lastSearches.unshift(searchedLocation);
+  }
+
+  let lastSearchesContaner = document.querySelector("#last-searches");
+  lastSearchesContaner.innerHTML = "";
+  lastSearches.forEach(function (location) {
+    let lastSearchBubble = `
+      <div class="col-4">
+        <div class="last-search rounded-5 text-center mx-1">
+        <div class="col-12 px-3">${location}</div>
+        </div>
+      </div>
+    `;
+    lastSearchesContaner.innerHTML += lastSearchBubble;
+  });
+}
+
+///// Logic for dark-light mode /////
+let darkModeToggle = document.querySelector("#flex-switch-check-default");
+
+darkModeToggle.addEventListener("change", function (e) {
+  let appWrapper = document.querySelector(".app-wrapper");
+  if (e.target.checked) {
+    appWrapper.classList.add("dark");
+  } else {
+    appWrapper.classList.remove("dark");
+  }
+});
 
 // When page loads we get a weather for default city
 callApiForCityOrCoordinates();

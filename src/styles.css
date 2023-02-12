@@ -22,9 +22,19 @@
   border-radius: 14px;
   box-shadow: 14px 17px 13px rgba(215, 158, 103, 0.7);
 }
+.app-wrapper.dark {
+  background: linear-gradient(
+    112.1deg,
+    rgb(32, 38, 57) 11.4%,
+    rgb(63, 76, 119) 70.2%
+  );
+}
 .form-check-input:checked {
   background-color: #ffc107;
   border-color: #ffc107;
+}
+.form-check-input {
+  cursor: pointer;
 }
 .nav {
   --bs-nav-link-color: black;
@@ -34,6 +44,9 @@
 .nav-pills .nav-link.active {
   color: #41464b;
   background-color: #ffc107;
+}
+.nav-link.active {
+  cursor: default;
 }
 .today-img {
   width: 50%;
@@ -58,6 +71,7 @@
   box-shadow: 7px 9px 11px rgba(255, 202, 176, 1);
   border: solid;
   border-color: #e0ffcd#ffcab0#ffebbb#fdffcd;
+  cursor: default;
 }
 .weather-img {
   width: 100%;
